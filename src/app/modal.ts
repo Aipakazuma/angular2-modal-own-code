@@ -10,7 +10,8 @@ import {
 export class ModalContext {
   constructor(
     private _resolve: Function,
-    private _reject: Function
+    private _reject: Function,
+    public parameters?: any
   ) {
   }
   resolve(val: any) {
@@ -36,7 +37,7 @@ export class Modal {
     return this.count > 0;
   }
 
-  open<T>(comp: any) {
+  open<T>(comp: any, parameters?: any) {
 
     return new Promise<T>((resolve, reject) => {
       const cf = this.cfr.resolveComponentFactory(comp);
@@ -57,9 +58,8 @@ export class Modal {
           this.count--;
         }
       };
-
       const bindings = ReflectiveInjector.resolve([
-        {provide: ModalContext, useValue: new ModalContext(_resolve, _reject)}
+        {provide: ModalContext, useValue: new ModalContext(_resolve, _reject, parameters)}
       ]);
 
       const ctxInjector = this.vcr.parentInjector;

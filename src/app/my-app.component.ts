@@ -34,19 +34,24 @@ import { GreetingModalComponent } from "./greeting-modal.component";
     <h1>Ng2 Modal Example</h1>
     <button (click)="openModal()">Open Modal</button>
     <span>Result: {{name}}</span>
+    <span>Result select: {{selectOption}}</span>
   </div>
   `,
 })
 export class MyApp {
-  private name = "";
+  private name:string = "";
+  private selectOption:string = "";
+  private objects:any = [{id:1},{id:2},{id:3}];
   constructor(
     private modal: Modal
   ) {
   }
 
   openModal() {
-    this.modal.open<string>(GreetingModalComponent).then(name => {
-      this.name = name;
+    console.log(this.objects);
+    this.modal.open<string>(GreetingModalComponent, this.objects).then(object => {
+      this.name = object['name'];
+      this.selectOption = object['selectOption'];
     }).catch(e => {
       console.log(e);
     });

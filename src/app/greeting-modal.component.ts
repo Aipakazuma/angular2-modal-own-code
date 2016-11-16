@@ -32,6 +32,12 @@ import { ModalContext } from "./modal";
       <section>
         <input [(ngModel)]="name" placeholder="Message">
       </section>
+      <section>
+        <select required [(ngModel)]="selectbox" (change)="select2=$event.target.value">
+          <option value="">選択してください</option>
+          <option *ngFor="let object of modal.parameters" [value]="object.id">{{object.id}}</option>
+        </select>
+      </section>
       <footer>
         <button class="ok" (click)="onClick()">OK</button>
         <button (click)="modal.reject()">Cancel</button>
@@ -41,6 +47,7 @@ import { ModalContext } from "./modal";
 })
 export class GreetingModalComponent {
   private name: string;
+  private selectbox: string;
 
   constructor(
     private modal: ModalContext
@@ -48,6 +55,10 @@ export class GreetingModalComponent {
   }
 
   onClick() {
-    this.modal.resolve(this.name);
+    var object = {
+      name: this.name,
+      selectOption: this.selectbox
+    };
+    this.modal.resolve(object);
   }
 }
