@@ -28,9 +28,26 @@ http://qiita.com/Quramy/items/ccfcfa0e45dd9e43f041
 ### ハマリポイント
 
 #### Componentから消えた `directives`
+
+```
+@Component({
+	selector: 'my-app',
+	directives: '...'
+})
+```
+
+↑こう書いている記事多いけど、最新のAngular2はこう書けない。
+紐付けには、Html上で、要素・属性・クラスで対応しましょう。
+
+
 #### `ViewContainerRef`が、何故か`undefined`
+
+`@Directive => ModalInner` と、`@Component => ModalEntryComponent`を一緒のファイルにしていたけど、分離したらうまくいった
+
 #### Promise のエラーキャッチ
 http://stackoverflow.com/questions/37624322/uncaught-in-promise-undefined-error-when-using-with-location-in-facebook-gra
+
+単純にPromiseを使う側で`catch(e) => { console.log(e); }`を入れただけ
 
 
 ## Directiveについて
